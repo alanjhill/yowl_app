@@ -13,6 +13,10 @@ _$_Review _$$_ReviewFromJson(Map<String, dynamic> json) => _$_Review(
       timeCreated: json['time_created'] == null
           ? null
           : DateTime.parse(json['time_created'] as String),
+      rating: json['rating'] as int?,
+      user: json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ReviewToJson(_$_Review instance) => <String, dynamic>{
@@ -20,4 +24,6 @@ Map<String, dynamic> _$$_ReviewToJson(_$_Review instance) => <String, dynamic>{
       'url': instance.url,
       'text': instance.text,
       'time_created': instance.timeCreated?.toIso8601String(),
+      'rating': instance.rating,
+      'user': instance.user,
     };

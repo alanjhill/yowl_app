@@ -9,6 +9,13 @@ class BusinessSearchEvent extends BusinessEvent {
   BusinessSearchEvent({required this.query});
 }
 
+class BusinessUpdateSortByEvent extends BusinessEvent {
+  final String sortBy;
+
+  BusinessUpdateSortByEvent({required this.sortBy});
+}
+
+/// Unused
 class BusinessInfoEvent extends BusinessEvent {
   final String businessId;
 

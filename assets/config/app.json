@@ -1,5 +1,5 @@
 {
   "api_key": "r0wsYYPtolZrBRm_4gcx2c7MRJKK5Dfmt9-oJahi0HNhKcalC3oUUXHCcvi1sf0JWRJAd0VHRjdAmnDjyR4UHCx_vrJUypzx16uHvWvsA-SOQrj0Fxdt8EFqYu4RZHYx",
-  "base_url": "https://api.yelp.com/v3/",
+  "graphql_url": "https://api.yelp.com/v3/graphql",
   "client_id": "dlRxjla9kjDlLZRbx1Twkw"
 }

@@ -34,3 +34,17 @@
 * Could not find a way to get back whether the business offers delivery/take out.
 
 * OpenHoursWidget needs some TLC to cater for multiple hours on the same day.
+
+A few screenshots:
+
+<table>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/18054733/226255005-761f9b23-7439-4651-966f-8f8aac5a3b29.png" width="200"></td>
+    <td><img src="https://user-images.githubusercontent.com/18054733/226255060-dff0b585-d6d4-4815-9666-ae487ecee16e.png" width="200"></td>
+    <td><img src="https://user-images.githubusercontent.com/18054733/226255116-5d8f842b-445b-474f-80e9-61071a44a8c5.png" width="200"></td>
+  </tr>
+</table>
+
+
+
+

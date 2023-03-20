@@ -34,24 +34,25 @@ class _SearchWidgetState extends State<SearchWidget> {
     );
   }
 
-  /// TODO: hardcoded for this exercise (with limited search functionality)
+  /// TODO: hardcoded for this exercise (with minimal search functionality)
   void _search(String searchString) {
     final query = Query(
         // This is my GPS location!
-        latitude: 49.32300630037216,
-        longitude: -123.07326573046741,
-        radius: 4000,
+        latitude: 49.322930667573914,
+        longitude: -123.07367809122593,
+        radius: 400,
         categories: 'restaurants',
         limit: 10,
         locale: 'en_CA',
         offset: 0,
-        sortBy: 'distance', // Default sort distance
+        sortBy: 'distance',
+        // Default sort distance
         term: searchString);
     BlocProvider.of<BusinessBloc>(context).add(
       BusinessSearchEvent(query: query),
     );
   }
-  
+
   @override
   void dispose() {
     _textController.dispose();

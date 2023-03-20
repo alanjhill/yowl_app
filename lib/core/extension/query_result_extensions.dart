@@ -14,8 +14,8 @@ extension ResponseTo on QueryResult {
         result = data![tag] == null
             ? null
             : data![tag]['error'] != null
-            ? throw WrongUserDataException()
-            : _createFromJSON<T>(data![tag]);
+                ? throw WrongUserDataException()
+                : _createFromJSON<T>(data![tag]);
       }
       return result;
     }
@@ -26,7 +26,8 @@ extension ResponseTo on QueryResult {
     if (exception != null) {
       throw Exception('Error: ${exception.toString()}');
     } else {
-      result = (data![tag] as List).map((e) => (_createFromJSON<T>(e)!)).toList();
+      result =
+          (data![tag] as List).map((e) => (_createFromJSON<T>(e)!)).toList();
       return result;
     }
   }
@@ -42,7 +43,8 @@ T? _createFromJSON<T>(Map<String, dynamic> json) {
   } else if (typeOf<dynamic>() == type || typeOf<void>() == type) {
     return null;
   }
-  throw ArgumentError('Looks like you forgot to add processing for type ${type.toString()}');
+  throw ArgumentError(
+      'Looks like you forgot to add processing for type ${type.toString()}');
 }
 
 class WrongUserDataException implements Exception {}

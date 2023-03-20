@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yowl_app/model/business.dart';
@@ -18,23 +19,19 @@ class BusinessInfo extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final itemSize = constraints.maxWidth / 5;
-                  return RatingBarIndicator(
-                    itemPadding: EdgeInsets.zero,
-                    rating: business.rating ?? 0,
-                    itemBuilder: (context, index) => const Icon(
-                      Icons.star,
-                      color: Colors.green,
-                    ),
-                    itemCount: 5,
-                    // TODO: size so it doesn't overflow
-                    itemSize: itemSize,
-                    
-                  );
-                }
-              ),
+              child: LayoutBuilder(builder: (context, constraints) {
+                final itemSize = constraints.maxWidth / 5;
+                return RatingBarIndicator(
+                  itemPadding: EdgeInsets.zero,
+                  rating: business.rating ?? 0,
+                  itemBuilder: (context, index) => const Icon(
+                    Icons.star,
+                    color: Colors.green,
+                  ),
+                  itemCount: 5,
+                  itemSize: min(itemSize, 40.0), // Use default if smaller
+                );
+              }),
             ),
           ],
         ),

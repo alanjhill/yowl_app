@@ -17,6 +17,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black54,
+          title: Text(
+            'Yowl',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          centerTitle: true,
+        ),
+        backgroundColor: Colors.white,
         body: BlocProvider<BusinessBloc>(
           create: (context) => BusinessBloc(),
           child: Column(

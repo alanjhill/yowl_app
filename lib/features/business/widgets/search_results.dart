@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yowl_app/core/router/app_router.gr.dart';
 import 'package:yowl_app/features/business/bloc/business_bloc.dart';
 import 'package:yowl_app/features/business/widgets/search_result_card.dart';
-import 'package:yowl_app/features/business/widgets/sort_results_widget.dart';
 import 'package:yowl_app/model/business.dart';
 
 class SearchResults extends StatelessWidget {
@@ -31,7 +30,7 @@ class SearchResults extends StatelessWidget {
     BusinessState state,
   ) {
     if (state is BusinessInitialState) {
-      return const Text('Search for your favorite restaurant...');
+      return const Text('Search for restaurants...');
     } else if (state is BusinessSearchLoadingState) {
       return const Center(child: CircularProgressIndicator());
     } else if (state is BusinessSearchResultsState) {
@@ -55,8 +54,7 @@ class SearchResults extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 8.0),
-                  child: Text(
-                      'Your search for \'${query.term}\' returned ${businessList.length} matches.',
+                  child: Text(_getText(query.term!, businessList.length),
                       style: Theme.of(context).textTheme.titleMedium),
                 ),
                 _buildBusinessList(context, businessList),
@@ -66,6 +64,15 @@ class SearchResults extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  /// TODO: Use intl for this
+  String _getText(String term, int matches) {
+    if (matches == 1) {
+      return 'Your search for \'$term\' returned $matches match.';
+    } else {
+      return 'Your search for \'$term\' returned $matches matches.';
+    }
   }
 
   Widget _buildBusinessList(BuildContext context, List<Business> businessList) {

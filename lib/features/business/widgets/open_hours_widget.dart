@@ -18,13 +18,13 @@ class OpenHoursWidget extends StatelessWidget {
           const Divider(height: 8.0, thickness: 1.0),
           ListView.builder(
             shrinkWrap: true,
-              itemCount: itemCount,
-              itemBuilder: (context, index) {
-                // TODO: Cater for multiple opening times on the same day
-                // TODO: Cater for days when closed
-                final openHours = hoursToDisplay?.open?[index];
-                return _hoursRow(openHours);
-              },
+            itemCount: itemCount,
+            itemBuilder: (context, index) {
+              // TODO: Cater for multiple opening times on the same day
+              // TODO: Cater for days when closed
+              final openHours = hoursToDisplay?.open?[index];
+              return _hoursRow(openHours);
+            },
           ),
         ],
       );
@@ -32,7 +32,7 @@ class OpenHoursWidget extends StatelessWidget {
       return Container();
     }
   }
-  
+
   String _getOpenNow(bool? openNow) {
     if (openNow == true) {
       return '(Open Now)';
@@ -41,7 +41,7 @@ class OpenHoursWidget extends StatelessWidget {
     }
     return '';
   }
-  
+
   Widget _hoursRow(OpenHours? openHours) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,7 +51,7 @@ class OpenHoursWidget extends StatelessWidget {
       ],
     );
   }
-  
+
   // TODO: Find a better (more elegant) way of doing this
   String _getDay(int dayNum) {
     switch (dayNum) {
@@ -69,7 +69,7 @@ class OpenHoursWidget extends StatelessWidget {
         return 'Saturday';
       case 6:
         return 'Sunday';
-      default: 
+      default:
         return '';
     }
   }

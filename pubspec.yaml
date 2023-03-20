@@ -82,3 +82,10 @@ flutter:
   
   assets:
     - assets/config/
+
+  fonts:
+    - family: Urbanist
+      fonts:
+        - asset: assets/fonts/Urbanist-VariableFont_wght.ttf
+          weight: 200
+          style: normal

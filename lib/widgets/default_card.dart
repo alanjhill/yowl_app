@@ -12,9 +12,9 @@ class DefaultCard extends StatelessWidget {
     required this.child,
     this.margin = const EdgeInsets.symmetric(
       horizontal: 16.0,
-      vertical: 12.0,
+      vertical: 8.0,
     ),
-    this.padding = const EdgeInsets.all(16.0),
+    this.padding = const EdgeInsets.all(8.0),
     this.onTap,
     this.color,
     this.border,

@@ -14,12 +14,11 @@ class BusinessReviews extends StatelessWidget {
   Widget build(BuildContext context) {
     final reviews = business.reviews;
     final reviewCount = min(reviews?.length ?? 0, count);
-    final bldr =  ListView.builder(
+    return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: reviewCount,
       itemBuilder: (context, index) => Text(reviews?[index].text ?? ''),
     );
-    return bldr;
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yowl_app/model/business.dart';
 import 'package:yowl_app/features/business/widgets/business_image.dart';
 import 'package:yowl_app/features/business/widgets/business_info.dart';
-import 'package:yowl_app/widgets/default_card.dart';
 import 'package:yowl_app/features/business/widgets/open_hours_widget.dart';
+import 'package:yowl_app/model/business.dart';
+import 'package:yowl_app/widgets/default_card.dart';
 
 class BusinessAboutPage extends StatelessWidget {
   final Business business;

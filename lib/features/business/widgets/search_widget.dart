@@ -14,40 +14,41 @@ class SearchWidget extends StatefulWidget {
 class _SearchWidgetState extends State<SearchWidget> {
   final _textController = TextEditingController();
 
+  late Query _query;
+
+  @override
+  void initState() {
+    super.initState();
+    _query = Query.withDefaults();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: AnimSearchBar(
-        width: 400,
-        autoFocus: true,
-        rtl: false,
-        textController: _textController,
-        onSuffixTap: () {
-          print('>>> onSuffixTap');
-        },
-        closeSearchOnSuffixTap: false,
-        onSubmitted: (String value) {
-          _search(value);
-        },
+    return BlocListener<BusinessBloc, BusinessState>(
+      listener: (context, state) {
+        _query = state.query;
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: AnimSearchBar(
+          width: 400,
+          autoFocus: true,
+          rtl: false,
+          textController: _textController,
+          onSuffixTap: () {
+            // Do nothing
+          },
+          closeSearchOnSuffixTap: false,
+          onSubmitted: (String value) {
+            _search(value);
+          },
+        ),
       ),
     );
   }
 
-  /// TODO: hardcoded for this exercise (with minimal search functionality)
-  void _search(String searchString) {
-    final query = Query(
-        // This is my GPS location!
-        latitude: 49.322930667573914,
-        longitude: -123.07367809122593,
-        radius: 400,
-        categories: 'restaurants',
-        limit: 10,
-        locale: 'en_CA',
-        offset: 0,
-        sortBy: 'distance',
-        // Default sort distance
-        term: searchString);
+  void _search(String term) {
+    final query = _query.copyWith(term: term);
     BlocProvider.of<BusinessBloc>(context).add(
       BusinessSearchEvent(query: query),
     );

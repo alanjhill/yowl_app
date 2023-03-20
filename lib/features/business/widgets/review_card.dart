@@ -10,19 +10,19 @@ class ReviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultCard(child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(review.user?.name ?? ''),
-            Text(DateFormat('d MMM ' 'y').format(review.timeCreated!)),
-          ],
-        ),
-        const Divider(height: 16.0, thickness: 1.0),
-        Text(review.text ?? ''),
-      ]
-    ));
+    return DefaultCard(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(review.user?.name ?? ''),
+              Text(DateFormat('d MMM ' 'y').format(review.timeCreated!)),
+            ],
+          ),
+          const Divider(height: 16.0, thickness: 1.0),
+          Text(review.text ?? ''),
+        ]));
   }
 }

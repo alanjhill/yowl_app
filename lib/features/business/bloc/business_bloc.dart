@@ -13,8 +13,9 @@ part 'business_state.dart';
 class BusinessBloc extends Bloc<BusinessEvent, BusinessState> {
   final _businessRepository = GetIt.instance.get<BusinessRepository>();
 
-  BusinessBloc() : super(const BusinessInitialState()) {
+  BusinessBloc() : super(BusinessInitialState(query: Query.withDefaults())) {
     on<BusinessSearchEvent>(_onBusinessSearchEvent);
+    on<BusinessUpdateSortByEvent>(_onBusinessUpdateSortByEvent);
     on<BusinessInfoEvent>(_onBusinessInfoEvent);
   }
 
@@ -24,8 +25,8 @@ class BusinessBloc extends Bloc<BusinessEvent, BusinessState> {
     Emitter<BusinessState> emit,
   ) async {
     // Loading
-    emit(const BusinessSearchLoadingState());
-    
+    emit(BusinessSearchLoadingState(query: state.query));
+
     // Search
     final results =
         await _businessRepository.searchBusinesses(query: event.query);
@@ -36,9 +37,19 @@ class BusinessBloc extends Bloc<BusinessEvent, BusinessState> {
             query: event.query, businessList: businesses));
       },
       (error) {
-        emit(BusinessErrorState(message: error.message));
+        emit(BusinessErrorState(query: state.query, message: error.message));
       },
     );
+  }
+
+  Future<void> _onBusinessUpdateSortByEvent(
+    BusinessUpdateSortByEvent event,
+    Emitter<BusinessState> emit,
+  ) async {
+    final query = state.query.copyWith(
+      sortBy: event.sortBy,
+    );
+    emit(BusinessSearchSortByUpdatedState(query: query));
   }
 
   /// Unused
@@ -55,15 +66,17 @@ class BusinessBloc extends Bloc<BusinessEvent, BusinessState> {
             await _businessRepository.getReviews(businessId: event.businessId);
         reviews.when(
           (reviews) {
-            emit(BusinessInfoState(business: business, reviewList: reviews));
+            emit(BusinessInfoState(
+                query: state.query, business: business, reviewList: reviews));
           },
           (error) {
-            emit(BusinessErrorState(message: error.message));
+            emit(
+                BusinessErrorState(query: state.query, message: error.message));
           },
         );
       },
       (error) {
-        emit(BusinessErrorState(message: error.message));
+        emit(BusinessErrorState(query: state.query, message: error.message));
       },
     );
   }

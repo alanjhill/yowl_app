@@ -5,7 +5,8 @@ import 'package:yowl_app/model/business.dart';
 class BusinessDetailsScreen extends StatelessWidget {
   final Business business;
 
-  const BusinessDetailsScreen({Key? key, required this.business}) : super(key: key);
+  const BusinessDetailsScreen({Key? key, required this.business})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class BusinessDetailsScreen extends StatelessWidget {
           ),
           centerTitle: true,
         ),
+        backgroundColor: Colors.white,
         body: Column(
           children: [
             BusinessDetailsPageView(business: business),

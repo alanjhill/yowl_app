@@ -6,5 +6,6 @@ class Failure {
   Failure({required this.message, this.code, this.exception});
 
   @override
-  String toString() => 'Failure(message: $message, code: $code, exception: $exception)';
+  String toString() =>
+      'Failure(message: $message, code: $code, exception: $exception)';
 }

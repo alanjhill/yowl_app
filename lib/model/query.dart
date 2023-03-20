@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'category.dart';
-
 part 'query.freezed.dart';
 
 part 'query.g.dart';
@@ -21,6 +19,18 @@ class Query with _$Query {
     final int? limit,
     final int? offset,
   }) = _Query;
+
+  factory Query.withDefaults() {
+    return const Query(
+      latitude: 49.322930667573914,
+      longitude: -123.07367809122593,
+      categories: 'restaurants',
+      limit: 10,
+      locale: 'en_CA',
+      offset: 0,
+      sortBy: 'distance',
+    );
+  }
 
   factory Query.fromJson(Map<String, dynamic> json) => _$QueryFromJson(json);
 }

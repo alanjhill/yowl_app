@@ -1,6 +1,8 @@
 # yowl_app
 
-* Uses Flutter 3.7.7.
+* Uses Flutter **3.7.7**
+
+* Use **master** branch
 
 * The name?  Synonym for Yelp: https://www.thesaurus.com/browse/yelp
 

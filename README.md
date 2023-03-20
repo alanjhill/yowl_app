@@ -1,12 +1,14 @@
 # yowl_app
 
+* Uses Flutter 3.7.7.
+
 * The name?  Synonym for Yelp: https://www.thesaurus.com/browse/yelp
 
 * Used JSON to Dart to generate models: https://javiercbk.github.io/json_to_dart/
 
 * Used Freezed & JsonSerializable to generate fromJson methods 
 
-* Started building with REST / Dio, to familiarize myself with the API and data and to get something built quickly.
+* Started building initially with REST / Dio (separate branch: rest) to familiarize myself with the API and data and to get something built quickly.
 
 * Switched to Graphql as a learning exercise.  Have not used before with Flutter (or anything else for that matter).
 
@@ -14,7 +16,7 @@
 
 * Opted for a single query that returned all data needed for the search results and for the details page.
 
-* This could be split into multiple queries, depending on hte data that is required for each page.
+* This could be split into multiple queries, depending on the data that is required for each page.
 
 * Need to refactor the Card displayed in the search results and the detail card to share common details. 
 

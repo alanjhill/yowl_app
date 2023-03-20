@@ -32,14 +32,16 @@ class YelpBusinessGraphqlClientImpl extends GraphQLService
             (results as List).map((r) => Business.fromJson(r)).toList();
         return businesses;
       } else if (queryResult.exception is OperationException) {
-        print(queryResult.exception);
+        if (kDebugMode) {
+          print('!!! ${queryResult.exception}');
+        }
         throw Failure(
             message: 'Something went wrong: ${queryResult.exception}');
       }
     } on OperationException catch (e, s) {
       if (kDebugMode) {
-        print(e);
-        print(s);
+        print('!!! $e');
+        print('!!! $s');
       }
       if (e.graphqlErrors.isNotEmpty) {
         throw Failure(message: 'Something went wrong: ${e.graphqlErrors}');
@@ -82,14 +84,16 @@ class YelpBusinessGraphqlClientImpl extends GraphQLService
             (results as List).map((r) => Review.fromJson(r)).toList();
         return reviews;
       } else if (queryResult.exception is OperationException) {
-        print(queryResult.exception);
+        if (kDebugMode) {
+          print('!!! ${queryResult.exception}');
+        }
         throw Failure(
             message: 'Something went wrong: ${queryResult.exception}');
       }
     } on OperationException catch (e, s) {
       if (kDebugMode) {
-        print(e);
-        print(s);
+        print('!!! $e');
+        print('!!! $s');
       }
       if (e.graphqlErrors.isNotEmpty) {
         throw Failure(message: 'Something went wrong: ${e.graphqlErrors}');

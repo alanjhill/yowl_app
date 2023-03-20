@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yowl_app/core/router/app_router.gr.dart';
@@ -20,8 +21,32 @@ class SearchResults extends StatelessWidget {
     BusinessState state,
   ) {
     if (state is BusinessErrorState) {
-      // TODO: Show a snackbar with error message
-      print('!!! ${state.message}');
+      if (kDebugMode) {
+        print('!!! ${state.message}');
+      }
+      showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('OOPS!'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(state.message),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 

@@ -1,12 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:yowl_app/app/app_config.dart';
-import 'package:yowl_app/core/api/business_api_client.dart';
-import 'package:yowl_app/core/api/business_api_client_impl.dart';
+import 'package:yowl_app/core/api/business_graphql_client.dart';
+import 'package:yowl_app/core/api/business_graphql_client_impl.dart';
 import 'package:yowl_app/core/repository/business_repository.dart';
-import 'package:yowl_app/core/repository/business_repository_impl.dart';
-import 'package:yowl_app/features/home/home.dart';
+import 'package:yowl_app/core/repository/business_repository_graphql_impl.dart';
+import 'package:yowl_app/core/router/app_router.gr.dart';
 
 class YowlApp extends StatefulWidget {
   const YowlApp({
@@ -18,6 +16,8 @@ class YowlApp extends StatefulWidget {
 }
 
 class _YowlApp extends State<YowlApp> with WidgetsBindingObserver {
+  final _appRouter = AppRouter();
+
   @override
   void initState() {
     super.initState();
@@ -25,27 +25,25 @@ class _YowlApp extends State<YowlApp> with WidgetsBindingObserver {
     _init();
   }
 
+  /// Initialize services with GetIt
   void _init() {
-    final dio = Dio(
-      BaseOptions(
-        baseUrl: AppConfig().baseUrl,
-      ),
+    // Graphql
+    GetIt.instance.registerSingleton<BusinessGraphqlClient>(
+      YelpBusinessGraphqlClientImpl(),
     );
-    GetIt.instance.registerSingleton<BusinessApiClient>(
-      YelpBusinessApiClientImpl(dio: dio),
-    );
-    GetIt.instance
-        .registerSingleton<BusinessRepository>(YelpBusinessRepositoryImpl());
+    GetIt.instance.registerSingleton<BusinessRepository>(
+        YelpBusinessRepositoryGraphqlImpl());
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Yowl App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(title: 'YOWL Home Page'),
+      routerDelegate: _appRouter.delegate(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
     );
   }
 }

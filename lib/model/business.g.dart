@@ -10,12 +10,19 @@ _$_Business _$$_BusinessFromJson(Map<String, dynamic> json) => _$_Business(
       id: json['id'] as String?,
       alias: json['alias'] as String?,
       name: json['name'] as String?,
-      imageUrl: json['image_url'] as String?,
       isClosed: json['is_closed'] as bool?,
       url: json['url'] as String?,
       reviewCount: json['review_count'] as int?,
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
+          .toList(),
       categories: (json['categories'] as List<dynamic>?)
           ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      photos:
+          (json['photos'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      hours: (json['hours'] as List<dynamic>?)
+          ?.map((e) => Hours.fromJson(e as Map<String, dynamic>))
           .toList(),
       rating: (json['rating'] as num?)?.toDouble(),
       coordinates: json['coordinates'] == null
@@ -38,11 +45,13 @@ Map<String, dynamic> _$$_BusinessToJson(_$_Business instance) =>
       'id': instance.id,
       'alias': instance.alias,
       'name': instance.name,
-      'image_url': instance.imageUrl,
       'is_closed': instance.isClosed,
       'url': instance.url,
       'review_count': instance.reviewCount,
+      'reviews': instance.reviews,
       'categories': instance.categories,
+      'photos': instance.photos,
+      'hours': instance.hours,
       'rating': instance.rating,
       'coordinates': instance.coordinates,
       'transactions': instance.transactions,

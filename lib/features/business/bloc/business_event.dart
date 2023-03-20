@@ -9,6 +9,7 @@ class BusinessSearchEvent extends BusinessEvent {
   BusinessSearchEvent({required this.query});
 }
 
+/// Unused
 class BusinessInfoEvent extends BusinessEvent {
   final String businessId;
 

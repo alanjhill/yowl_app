@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yowl_app/model/user.dart';
 
 part 'review.freezed.dart';
 part 'review.g.dart';
@@ -11,7 +12,7 @@ class Review with _$Review {
     String? url,
     String? text,
     DateTime? timeCreated,
-    // TODO: User
+    User? user,
   }) = _Review;
   
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);

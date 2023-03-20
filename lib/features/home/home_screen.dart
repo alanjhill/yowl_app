@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yowl_app/features/search/bloc/business_bloc.dart';
-import 'package:yowl_app/features/search/widgets/search_results.dart';
-import 'package:yowl_app/features/search/widgets/search_widget.dart';
+import 'package:yowl_app/features/business/bloc/business_bloc.dart';
+import 'package:yowl_app/features/business/widgets/search_results.dart';
+import 'package:yowl_app/features/business/widgets/search_widget.dart';
+import 'package:yowl_app/features/business/widgets/sort_results_widget.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-
-  final String title;
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        //appBar: AppBar(title: Text(widget.title)),
         body: BlocProvider<BusinessBloc>(
           create: (context) => BusinessBloc(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(height: 64.0, child: SearchWidget()),
+              const SortResultsWidget(),
               SearchResults(),
             ],
           ),

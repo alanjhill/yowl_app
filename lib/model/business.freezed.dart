@@ -23,11 +23,13 @@ mixin _$Business {
   String? get id => throw _privateConstructorUsedError;
   String? get alias => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
   bool? get isClosed => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
   int? get reviewCount => throw _privateConstructorUsedError;
+  List<Review>? get reviews => throw _privateConstructorUsedError;
   List<Category>? get categories => throw _privateConstructorUsedError;
+  List<String>? get photos => throw _privateConstructorUsedError;
+  List<Hours>? get hours => throw _privateConstructorUsedError;
   double? get rating => throw _privateConstructorUsedError;
   Coordinates? get coordinates => throw _privateConstructorUsedError;
   List<String>? get transactions => throw _privateConstructorUsedError;
@@ -52,11 +54,13 @@ abstract class $BusinessCopyWith<$Res> {
       {String? id,
       String? alias,
       String? name,
-      String? imageUrl,
       bool? isClosed,
       String? url,
       int? reviewCount,
+      List<Review>? reviews,
       List<Category>? categories,
+      List<String>? photos,
+      List<Hours>? hours,
       double? rating,
       Coordinates? coordinates,
       List<String>? transactions,
@@ -86,11 +90,13 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
     Object? id = freezed,
     Object? alias = freezed,
     Object? name = freezed,
-    Object? imageUrl = freezed,
     Object? isClosed = freezed,
     Object? url = freezed,
     Object? reviewCount = freezed,
+    Object? reviews = freezed,
     Object? categories = freezed,
+    Object? photos = freezed,
+    Object? hours = freezed,
     Object? rating = freezed,
     Object? coordinates = freezed,
     Object? transactions = freezed,
@@ -113,10 +119,6 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       isClosed: freezed == isClosed
           ? _value.isClosed
           : isClosed // ignore: cast_nullable_to_non_nullable
@@ -129,10 +131,22 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
           ? _value.reviewCount
           : reviewCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      reviews: freezed == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Review>?,
       categories: freezed == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>?,
+      photos: freezed == photos
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      hours: freezed == hours
+          ? _value.hours
+          : hours // ignore: cast_nullable_to_non_nullable
+              as List<Hours>?,
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -204,11 +218,13 @@ abstract class _$$_BusinessCopyWith<$Res> implements $BusinessCopyWith<$Res> {
       {String? id,
       String? alias,
       String? name,
-      String? imageUrl,
       bool? isClosed,
       String? url,
       int? reviewCount,
+      List<Review>? reviews,
       List<Category>? categories,
+      List<String>? photos,
+      List<Hours>? hours,
       double? rating,
       Coordinates? coordinates,
       List<String>? transactions,
@@ -238,11 +254,13 @@ class __$$_BusinessCopyWithImpl<$Res>
     Object? id = freezed,
     Object? alias = freezed,
     Object? name = freezed,
-    Object? imageUrl = freezed,
     Object? isClosed = freezed,
     Object? url = freezed,
     Object? reviewCount = freezed,
+    Object? reviews = freezed,
     Object? categories = freezed,
+    Object? photos = freezed,
+    Object? hours = freezed,
     Object? rating = freezed,
     Object? coordinates = freezed,
     Object? transactions = freezed,
@@ -265,10 +283,6 @@ class __$$_BusinessCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       isClosed: freezed == isClosed
           ? _value.isClosed
           : isClosed // ignore: cast_nullable_to_non_nullable
@@ -281,10 +295,22 @@ class __$$_BusinessCopyWithImpl<$Res>
           ? _value.reviewCount
           : reviewCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      reviews: freezed == reviews
+          ? _value._reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Review>?,
       categories: freezed == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>?,
+      photos: freezed == photos
+          ? _value._photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      hours: freezed == hours
+          ? _value._hours
+          : hours // ignore: cast_nullable_to_non_nullable
+              as List<Hours>?,
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -329,11 +355,13 @@ class _$_Business implements _Business {
       {this.id,
       this.alias,
       this.name,
-      this.imageUrl,
       this.isClosed,
       this.url,
       this.reviewCount,
+      final List<Review>? reviews,
       final List<Category>? categories,
+      final List<String>? photos,
+      final List<Hours>? hours,
       this.rating,
       this.coordinates,
       final List<String>? transactions,
@@ -342,7 +370,10 @@ class _$_Business implements _Business {
       this.displayPhone,
       this.distance,
       this.price})
-      : _categories = categories,
+      : _reviews = reviews,
+        _categories = categories,
+        _photos = photos,
+        _hours = hours,
         _transactions = transactions;
 
   factory _$_Business.fromJson(Map<String, dynamic> json) =>
@@ -355,19 +386,47 @@ class _$_Business implements _Business {
   @override
   final String? name;
   @override
-  final String? imageUrl;
-  @override
   final bool? isClosed;
   @override
   final String? url;
   @override
   final int? reviewCount;
+  final List<Review>? _reviews;
+  @override
+  List<Review>? get reviews {
+    final value = _reviews;
+    if (value == null) return null;
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<Category>? _categories;
   @override
   List<Category>? get categories {
     final value = _categories;
     if (value == null) return null;
     if (_categories is EqualUnmodifiableListView) return _categories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _photos;
+  @override
+  List<String>? get photos {
+    final value = _photos;
+    if (value == null) return null;
+    if (_photos is EqualUnmodifiableListView) return _photos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Hours>? _hours;
+  @override
+  List<Hours>? get hours {
+    final value = _hours;
+    if (value == null) return null;
+    if (_hours is EqualUnmodifiableListView) return _hours;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -399,7 +458,7 @@ class _$_Business implements _Business {
 
   @override
   String toString() {
-    return 'Business(id: $id, alias: $alias, name: $name, imageUrl: $imageUrl, isClosed: $isClosed, url: $url, reviewCount: $reviewCount, categories: $categories, rating: $rating, coordinates: $coordinates, transactions: $transactions, location: $location, phone: $phone, displayPhone: $displayPhone, distance: $distance, price: $price)';
+    return 'Business(id: $id, alias: $alias, name: $name, isClosed: $isClosed, url: $url, reviewCount: $reviewCount, reviews: $reviews, categories: $categories, photos: $photos, hours: $hours, rating: $rating, coordinates: $coordinates, transactions: $transactions, location: $location, phone: $phone, displayPhone: $displayPhone, distance: $distance, price: $price)';
   }
 
   @override
@@ -410,15 +469,16 @@ class _$_Business implements _Business {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.alias, alias) || other.alias == alias) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
             (identical(other.isClosed, isClosed) ||
                 other.isClosed == isClosed) &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.reviewCount, reviewCount) ||
                 other.reviewCount == reviewCount) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews) &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
+            const DeepCollectionEquality().equals(other._photos, _photos) &&
+            const DeepCollectionEquality().equals(other._hours, _hours) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.coordinates, coordinates) ||
                 other.coordinates == coordinates) &&
@@ -441,11 +501,13 @@ class _$_Business implements _Business {
       id,
       alias,
       name,
-      imageUrl,
       isClosed,
       url,
       reviewCount,
+      const DeepCollectionEquality().hash(_reviews),
       const DeepCollectionEquality().hash(_categories),
+      const DeepCollectionEquality().hash(_photos),
+      const DeepCollectionEquality().hash(_hours),
       rating,
       coordinates,
       const DeepCollectionEquality().hash(_transactions),
@@ -474,11 +536,13 @@ abstract class _Business implements Business {
       {final String? id,
       final String? alias,
       final String? name,
-      final String? imageUrl,
       final bool? isClosed,
       final String? url,
       final int? reviewCount,
+      final List<Review>? reviews,
       final List<Category>? categories,
+      final List<String>? photos,
+      final List<Hours>? hours,
       final double? rating,
       final Coordinates? coordinates,
       final List<String>? transactions,
@@ -497,15 +561,19 @@ abstract class _Business implements Business {
   @override
   String? get name;
   @override
-  String? get imageUrl;
-  @override
   bool? get isClosed;
   @override
   String? get url;
   @override
   int? get reviewCount;
   @override
+  List<Review>? get reviews;
+  @override
   List<Category>? get categories;
+  @override
+  List<String>? get photos;
+  @override
+  List<Hours>? get hours;
   @override
   double? get rating;
   @override

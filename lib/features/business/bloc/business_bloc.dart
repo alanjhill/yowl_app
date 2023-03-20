@@ -18,10 +18,15 @@ class BusinessBloc extends Bloc<BusinessEvent, BusinessState> {
     on<BusinessInfoEvent>(_onBusinessInfoEvent);
   }
 
+  /// Search businesses and return required data
   Future<void> _onBusinessSearchEvent(
     BusinessSearchEvent event,
     Emitter<BusinessState> emit,
   ) async {
+    // Loading
+    emit(const BusinessSearchLoadingState());
+    
+    // Search
     final results =
         await _businessRepository.searchBusinesses(query: event.query);
 
@@ -31,11 +36,12 @@ class BusinessBloc extends Bloc<BusinessEvent, BusinessState> {
             query: event.query, businessList: businesses));
       },
       (error) {
-        emit(const BusinessErrorState());
+        emit(BusinessErrorState(message: error.message));
       },
     );
   }
 
+  /// Unused
   Future<void> _onBusinessInfoEvent(
     BusinessInfoEvent event,
     Emitter<BusinessState> emit,
@@ -52,12 +58,12 @@ class BusinessBloc extends Bloc<BusinessEvent, BusinessState> {
             emit(BusinessInfoState(business: business, reviewList: reviews));
           },
           (error) {
-            emit(const BusinessErrorState());
+            emit(BusinessErrorState(message: error.message));
           },
         );
       },
       (error) {
-        emit(const BusinessErrorState());
+        emit(BusinessErrorState(message: error.message));
       },
     );
   }

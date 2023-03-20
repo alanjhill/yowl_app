@@ -1,7 +1,7 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yowl_app/features/search/bloc/business_bloc.dart';
+import 'package:yowl_app/features/business/bloc/business_bloc.dart';
 import 'package:yowl_app/model/query.dart';
 
 class SearchWidget extends StatefulWidget {
@@ -45,10 +45,16 @@ class _SearchWidgetState extends State<SearchWidget> {
         limit: 10,
         locale: 'en_CA',
         offset: 0,
-        sortBy: 'distance',
+        sortBy: 'distance', // Default sort distance
         term: searchString);
     BlocProvider.of<BusinessBloc>(context).add(
       BusinessSearchEvent(query: query),
     );
+  }
+  
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 }

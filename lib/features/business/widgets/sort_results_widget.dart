@@ -19,36 +19,33 @@ class _SortResultsWidgetState extends State<SortResultsWidget> {
     return BlocConsumer<BusinessBloc, BusinessState>(
       listener: _businessBlocListener,
       builder: (context, state) {
-        return BlocListener<BusinessBloc, BusinessState>(
-          listener: _businessBlocListener,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text('Sort by:'),
-              DropdownButton(
-                value: _dropdownValue,
-                items: const [
-                  DropdownMenuItem(
-                    value: 'distance',
-                    child: Text('Distance'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'best_match',
-                    child: Text('Best Match'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'rating',
-                    child: Text('Rating'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'review_count',
-                    child: Text('Most Reviews'),
-                  ),
-                ],
-                onChanged: _sortByChanged,
-              ),
-            ],
-          ),
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Text('Sort by:'),
+            DropdownButton(
+              value: _dropdownValue,
+              items: const [
+                DropdownMenuItem(
+                  value: 'distance',
+                  child: Text('Distance'),
+                ),
+                DropdownMenuItem(
+                  value: 'best_match',
+                  child: Text('Best Match'),
+                ),
+                DropdownMenuItem(
+                  value: 'rating',
+                  child: Text('Rating'),
+                ),
+                DropdownMenuItem(
+                  value: 'review_count',
+                  child: Text('Most Reviews'),
+                ),
+              ],
+              onChanged: _sortByChanged,
+            ),
+          ],
         );
       },
     );

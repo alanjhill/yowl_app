@@ -1,67 +1,64 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yowl_app/core/router/app_router.gr.dart';
-import 'package:yowl_app/features/business/bloc/business_bloc.dart';
+import 'package:yowl_app/features/business/provider/provider.dart';
 import 'package:yowl_app/features/business/widgets/search_result_card.dart';
 import 'package:yowl_app/model/business.dart';
 
-class SearchResults extends StatelessWidget {
+class SearchResults extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<BusinessBloc, BusinessState>(
-      builder: _businessBlocBuilder,
-      listener: _businessBlocListener,
-    );
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(businessStateProvider);
 
-  void _businessBlocListener(
-    BuildContext context,
-    BusinessState state,
-  ) {
+    // Error handling
     if (state is BusinessErrorState) {
-      if (kDebugMode) {
-        print('!!! ${state.message}');
-      }
-      showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('OOPS!'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text(state.message),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+      _showErrorDialog(context, state);
     }
-  }
 
-  Widget _businessBlocBuilder(
-    BuildContext context,
-    BusinessState state,
-  ) {
+    // Build handling
     if (state is BusinessInitialState) {
       return const Text('Search for restaurants...');
     } else if (state is BusinessSearchLoadingState) {
       return const Center(child: CircularProgressIndicator());
     } else if (state is BusinessSearchResultsState) {
       return _buildResults(context, state);
+    } else {
+      return Container();
     }
-    return Container();
+  }
+
+  void _showErrorDialog(
+    BuildContext context,
+    BusinessErrorState state,
+  ) {
+    if (kDebugMode) {
+      print('!!! ${state.message}');
+    }
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('OOPS!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(state.message),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildResults(BuildContext context, BusinessSearchResultsState state) {
@@ -78,9 +75,13 @@ class SearchResults extends StatelessWidget {
               [
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 8.0),
-                  child: Text(_getText(query.term!, businessList.length),
-                      style: Theme.of(context).textTheme.titleMedium),
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: Text(
+                    _getText(query.term!, businessList.length),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
                 _buildBusinessList(context, businessList),
               ],
@@ -106,8 +107,12 @@ class SearchResults extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         return SearchResultCard(
-            business: businessList[index],
-            onTap: () => _onTap(context, businessList[index]));
+          business: businessList[index],
+          onTap: () => _onTap(
+            context,
+            businessList[index],
+          ),
+        );
       },
       itemCount: businessList.length,
     );

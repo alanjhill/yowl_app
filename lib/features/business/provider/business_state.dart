@@ -1,4 +1,5 @@
-part of 'business_bloc.dart';
+import 'package:flutter/foundation.dart';
+import 'package:yowl_app/model/models.dart';
 
 @immutable
 class BusinessState {

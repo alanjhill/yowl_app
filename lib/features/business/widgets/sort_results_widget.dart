@@ -1,80 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yowl_app/features/business/bloc/business_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:yowl_app/features/business/provider/provider.dart';
+import 'package:yowl_app/features/business/provider/business_provider.dart';
 import 'package:yowl_app/model/models.dart';
 
-class SortResultsWidget extends StatefulWidget {
+class SortResultsWidget extends ConsumerStatefulWidget {
   const SortResultsWidget({Key? key}) : super(key: key);
 
   @override
-  State<SortResultsWidget> createState() => _SortResultsWidgetState();
+  SortResultsWidgetState createState() => SortResultsWidgetState();
 }
 
-class _SortResultsWidgetState extends State<SortResultsWidget> {
+class SortResultsWidgetState extends ConsumerState<SortResultsWidget> {
   String _dropdownValue = 'distance';
   Query? _query;
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BusinessBloc, BusinessState>(
-      listener: _businessBlocListener,
-      builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Text('Sort by:'),
-            DropdownButton(
-              value: _dropdownValue,
-              items: const [
-                DropdownMenuItem(
-                  value: 'distance',
-                  child: Text('Distance'),
-                ),
-                DropdownMenuItem(
-                  value: 'best_match',
-                  child: Text('Best Match'),
-                ),
-                DropdownMenuItem(
-                  value: 'rating',
-                  child: Text('Rating'),
-                ),
-                DropdownMenuItem(
-                  value: 'review_count',
-                  child: Text('Most Reviews'),
-                ),
-              ],
-              onChanged: _sortByChanged,
+    final businessState = ref.watch(businessStateProvider);
+    if (businessState is BusinessSearchSortByUpdatedState) {
+      _query = businessState.query;
+    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        const Text('Sort by:'),
+        DropdownButton(
+          value: _dropdownValue,
+          items: const [
+            DropdownMenuItem(
+              value: 'distance',
+              child: Text('Distance'),
+            ),
+            DropdownMenuItem(
+              value: 'best_match',
+              child: Text('Best Match'),
+            ),
+            DropdownMenuItem(
+              value: 'rating',
+              child: Text('Rating'),
+            ),
+            DropdownMenuItem(
+              value: 'review_count',
+              child: Text('Most Reviews'),
             ),
           ],
-        );
-      },
+          onChanged: _sortByChanged,
+        ),
+      ],
     );
   }
 
-  void _businessBlocListener(
-    BuildContext context,
-    BusinessState state,
-  ) {
-    if (state is BusinessSearchResultsState) {
-      _query = state.query;
-    }
-  }
-
   void _sortByChanged(String? newValue) {
-    final newQuery = _query?.copyWith(
+    _query = _query?.copyWith(
       sortBy: newValue,
     );
     setState(() {
       _dropdownValue = newValue!;
     });
-    if (newQuery == null) {
-      BlocProvider.of<BusinessBloc>(context).add(
-        BusinessUpdateSortByEvent(sortBy: newValue!),
-      );
+    if (_query?.term != null) {
+      ref.read(businessStateProvider.notifier).searchBusinesses(query: _query!);
     } else {
-      BlocProvider.of<BusinessBloc>(context).add(
-        BusinessSearchEvent(query: newQuery),
-      );
+      ref.read(businessStateProvider.notifier).updateSortBy(sortBy: newValue!);
     }
   }
 }

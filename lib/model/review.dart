@@ -12,6 +12,7 @@ class Review with _$Review {
     String? url,
     String? text,
     DateTime? timeCreated,
+    int? rating,
     User? user,
   }) = _Review;
   

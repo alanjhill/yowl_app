@@ -17,7 +17,12 @@ class ReviewCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(review.user?.name ?? ''),
+              Text('${review.user?.name}' ?? ''),
+              if (review.rating != null)  Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text('(Rating: ${review.rating})'),
+              ),
+              const Spacer(),
               Text(DateFormat('d MMM ' 'y').format(review.timeCreated!)),
             ],
           ),

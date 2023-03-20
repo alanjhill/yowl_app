@@ -24,6 +24,7 @@ mixin _$Review {
   String? get url => throw _privateConstructorUsedError;
   String? get text => throw _privateConstructorUsedError;
   DateTime? get timeCreated => throw _privateConstructorUsedError;
+  int? get rating => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $ReviewCopyWith<$Res> {
       String? url,
       String? text,
       DateTime? timeCreated,
+      int? rating,
       User? user});
 
   $UserCopyWith<$Res>? get user;
@@ -63,6 +65,7 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
     Object? url = freezed,
     Object? text = freezed,
     Object? timeCreated = freezed,
+    Object? rating = freezed,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -82,6 +85,10 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
           ? _value.timeCreated
           : timeCreated // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -113,6 +120,7 @@ abstract class _$$_ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
       String? url,
       String? text,
       DateTime? timeCreated,
+      int? rating,
       User? user});
 
   @override
@@ -133,6 +141,7 @@ class __$$_ReviewCopyWithImpl<$Res>
     Object? url = freezed,
     Object? text = freezed,
     Object? timeCreated = freezed,
+    Object? rating = freezed,
     Object? user = freezed,
   }) {
     return _then(_$_Review(
@@ -152,6 +161,10 @@ class __$$_ReviewCopyWithImpl<$Res>
           ? _value.timeCreated
           : timeCreated // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -164,7 +177,8 @@ class __$$_ReviewCopyWithImpl<$Res>
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Review implements _Review {
-  const _$_Review({this.id, this.url, this.text, this.timeCreated, this.user});
+  const _$_Review(
+      {this.id, this.url, this.text, this.timeCreated, this.rating, this.user});
 
   factory _$_Review.fromJson(Map<String, dynamic> json) =>
       _$$_ReviewFromJson(json);
@@ -178,11 +192,13 @@ class _$_Review implements _Review {
   @override
   final DateTime? timeCreated;
   @override
+  final int? rating;
+  @override
   final User? user;
 
   @override
   String toString() {
-    return 'Review(id: $id, url: $url, text: $text, timeCreated: $timeCreated, user: $user)';
+    return 'Review(id: $id, url: $url, text: $text, timeCreated: $timeCreated, rating: $rating, user: $user)';
   }
 
   @override
@@ -195,13 +211,14 @@ class _$_Review implements _Review {
             (identical(other.text, text) || other.text == text) &&
             (identical(other.timeCreated, timeCreated) ||
                 other.timeCreated == timeCreated) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, url, text, timeCreated, user);
+      Object.hash(runtimeType, id, url, text, timeCreated, rating, user);
 
   @JsonKey(ignore: true)
   @override
@@ -223,6 +240,7 @@ abstract class _Review implements Review {
       final String? url,
       final String? text,
       final DateTime? timeCreated,
+      final int? rating,
       final User? user}) = _$_Review;
 
   factory _Review.fromJson(Map<String, dynamic> json) = _$_Review.fromJson;
@@ -235,6 +253,8 @@ abstract class _Review implements Review {
   String? get text;
   @override
   DateTime? get timeCreated;
+  @override
+  int? get rating;
   @override
   User? get user;
   @override

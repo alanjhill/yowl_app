@@ -18,7 +18,7 @@ class BusinessDetailsScreen extends StatelessWidget {
           foregroundColor: Colors.black54,
           title: Text(
             business.name ?? '',
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           centerTitle: true,
         ),

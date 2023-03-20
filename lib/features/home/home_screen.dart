@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
           foregroundColor: Colors.black54,
           title: Text(
             'Yowl',
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           centerTitle: true,
         ),

@@ -17,9 +17,11 @@ class SortResultsWidgetState extends ConsumerState<SortResultsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final businessState = ref.watch(businessStateProvider);
-    if (businessState is BusinessSearchSortByUpdatedState) {
-      _query = businessState.query;
+    final state = ref.watch(businessStateProvider);
+    if (state is BusinessSearchSortByUpdatedState) {
+      _query = state.query;
+    } else if (state is BusinessSearchResultsState) {
+      _query = state.query;
     }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

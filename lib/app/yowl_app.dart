@@ -22,17 +22,6 @@ class _YowlApp extends State<YowlApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _init();
-  }
-
-  /// Initialize services with GetIt
-  void _init() {
-    // Graphql
-    GetIt.instance.registerSingleton<BusinessGraphqlClient>(
-      YelpBusinessGraphqlClientImpl(),
-    );
-    GetIt.instance.registerSingleton<BusinessRepository>(
-        YelpBusinessRepositoryGraphqlImpl());
   }
 
   @override

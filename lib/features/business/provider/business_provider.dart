@@ -1,11 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:yowl_app/core/api/business_graphql_client_impl.dart';
 import 'package:yowl_app/core/repository/business_repository.dart';
 import 'package:yowl_app/core/repository/business_repository_graphql_impl.dart';
 import 'package:yowl_app/features/business/provider/provider.dart';
 import 'package:yowl_app/model/models.dart';
 
 final businessRepositoryProvider = Provider<BusinessRepository>((ref) {
-  return YelpBusinessRepositoryGraphqlImpl();
+  final graphApiClient = ref.watch(businessGraphqlClientProvider);
+  return YelpBusinessRepositoryGraphqlImpl(graphApiClient);
 });
 
 class BusinessStateNotifier extends StateNotifier<BusinessState> {

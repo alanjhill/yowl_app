@@ -1,13 +1,17 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql/client.dart';
-import 'package:yowl_app/core/extension/query_result_extensions.dart';
 import 'package:yowl_app/core/api/business_graphql_client.dart';
-import 'package:yowl_app/core/exception/failure.dart';
 import 'package:yowl_app/core/api/graphql_service.dart';
 import 'package:yowl_app/core/api/queries.dart';
+import 'package:yowl_app/core/exception/failure.dart';
+import 'package:yowl_app/core/extension/query_result_extensions.dart';
 import 'package:yowl_app/model/business.dart';
 import 'package:yowl_app/model/query.dart';
 import 'package:yowl_app/model/review.dart';
+
+final businessGraphqlClientProvider =
+    Provider<BusinessGraphqlClient>((ref) => YelpBusinessGraphqlClientImpl());
 
 class YelpBusinessGraphqlClientImpl extends GraphQLService
     implements BusinessGraphqlClient {
@@ -38,18 +42,8 @@ class YelpBusinessGraphqlClientImpl extends GraphQLService
         throw Failure(
             message: 'Something went wrong: ${queryResult.exception}');
       }
-    } on OperationException catch (e, s) {
-      if (kDebugMode) {
-        print('!!! $e');
-        print('!!! $s');
-      }
-      if (e.graphqlErrors.isNotEmpty) {
-        throw Failure(message: 'Something went wrong: ${e.graphqlErrors}');
-      } else if (e.linkException != null) {
-        throw Failure(
-          message: 'Internet Connection Error',
-        );
-      }
+    } catch (error, stack) {
+      _handleError(error, stack);
     }
     return [];
   }
@@ -90,19 +84,31 @@ class YelpBusinessGraphqlClientImpl extends GraphQLService
         throw Failure(
             message: 'Something went wrong: ${queryResult.exception}');
       }
-    } on OperationException catch (e, s) {
+    } catch (error, stack) {
+      _handleError(error, stack);
+    }
+    return [];
+  }
+
+  void _handleError(error, stacktrace) {
+    if (error is OperationException) {
       if (kDebugMode) {
-        print('!!! $e');
-        print('!!! $s');
+        print('!!! $error');
+        print('!!! $stacktrace');
       }
-      if (e.graphqlErrors.isNotEmpty) {
-        throw Failure(message: 'Something went wrong: ${e.graphqlErrors}');
-      } else if (e.linkException != null) {
+      if (error.graphqlErrors.isNotEmpty) {
+        throw Failure(message: 'Something went wrong: ${error.graphqlErrors}');
+      } else if (error.linkException != null) {
         throw Failure(
           message: 'Internet Connection Error',
         );
       }
+    } else if (error is Exception) {
+      if (kDebugMode) {
+        print('!!! $error');
+        print('!!! $stacktrace');
+      }
+      throw Failure(message: 'Something went wrong: $error');
     }
-    return [];
   }
 }

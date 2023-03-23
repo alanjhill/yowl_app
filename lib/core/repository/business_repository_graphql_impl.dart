@@ -1,4 +1,3 @@
-import 'package:get_it/get_it.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:yowl_app/core/api/business_graphql_client.dart';
 import 'package:yowl_app/core/exception/failure.dart';
@@ -8,7 +7,9 @@ import 'package:yowl_app/model/query.dart';
 import 'package:yowl_app/model/review.dart';
 
 class YelpBusinessRepositoryGraphqlImpl implements BusinessRepository {
-  final _graphApiClient = GetIt.instance.get<BusinessGraphqlClient>();
+  final BusinessGraphqlClient _graphApiClient;
+
+  YelpBusinessRepositoryGraphqlImpl(this._graphApiClient);
 
   @override
   Future<Result<List<Business>, Failure>> searchBusinesses(

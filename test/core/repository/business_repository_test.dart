@@ -15,7 +15,7 @@ void main() {
   //late BusinessRepository mockedBusinessRepository;
   late BusinessGraphqlClient mockedBusinessGraphqlClient;
 
-  setUp(() {
+  setUpAll(() {
     mockedBusinessGraphqlClient = MockBusinessGraphqlClient();
     final dependencyInjection = GetIt.instance;
     dependencyInjection.registerFactory<BusinessGraphqlClient>(
@@ -60,4 +60,30 @@ void main() {
       expect(businesses[0].name, 'Krua Thai Restaurant');
     },
   );
+  
+  test('Test retrieve business throws error', () async {
+    const query = Query(categories: 'restaurants', term: 'thai');
+    
+    when(() => mockedBusinessGraphqlClient.searchBusinesses(query: query))
+      .thenThrow(Exception('Something went wrong'));
+    
+    final businessRepository = GetIt.instance.get<BusinessRepository>();
+    final results = await businessRepository.searchBusinesses(query: query);
+    
+    expect(results.isError(), true);
+  });
+  
+  test('Test retrieve businesses returns no results', () async  {
+    const query = Query(categories: 'restaurants', term: 'thai');
+    
+    when(() => mockedBusinessGraphqlClient.searchBusinesses(query: query))
+      .thenAnswer((invocation) => Future.value([]));
+    
+    final businessRepository = GetIt.instance.get<BusinessRepository>();
+    final results = await businessRepository.searchBusinesses(query: query);
+    final businesses = results.tryGetSuccess()!;
+    
+    expect(results.isSuccess(), true);
+    expect(businesses.length, 0);
+  });
 }

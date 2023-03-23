@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:yowl_app/core/api/business_graphql_client.dart';
@@ -21,6 +22,12 @@ class YelpBusinessRepositoryGraphqlImpl implements BusinessRepository {
       return const Success([]);
     } on Failure catch (failure) {
       return Error(failure);
+    } on Exception catch (e, s) {
+      if (kDebugMode) {
+        print('!!! $e');
+        print('!!! $s');
+      }
+      return Error(Failure(message: 'Something went wrong: $e'));
     }
   }
 

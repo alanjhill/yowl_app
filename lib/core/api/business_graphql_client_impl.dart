@@ -50,6 +50,12 @@ class YelpBusinessGraphqlClientImpl extends GraphQLService
           message: 'Internet Connection Error',
         );
       }
+    } on Exception catch (e, s) {
+      if (kDebugMode) {
+        print('!!! $e');
+        print('!!! $s');
+      }
+      throw Failure(message: 'Something went wrong: $e');
     }
     return [];
   }
